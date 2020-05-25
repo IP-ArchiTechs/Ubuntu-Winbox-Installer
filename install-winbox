@@ -7,8 +7,6 @@ mkdir -p ~/.local/bin
 mkdir -p ~/.local/share/applications
 mkdir -p ~/.local/share/icons/hicolor
 
-cp winbox.desktop ~/.local/share/applications/
-cp winbox ~/.local/bin/
 wget https://mt.lv/winbox64 -O ~/.local/exe/winbox64.exe
 
 for size in $( ls -1 icons/winbox-*.png | cut -d\- -f2 | cut -d\. -f1 | paste -sd ' ') ; do
