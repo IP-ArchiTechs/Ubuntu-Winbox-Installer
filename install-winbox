@@ -1,0 +1,46 @@
+#!/bin/bash
+
+sudo apt install wine wget curl
+
+mkdir -p ~/.local/exe
+mkdir -p ~/.local/bin
+mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/share/icons/hicolor
+
+cp winbox.desktop ~/.local/share/applications/
+cp winbox ~/.local/bin/
+wget https://mt.lv/winbox64 -O ~/.local/exe/winbox64.exe
+
+chmod +x ~/.local/bin/winbox
+
+for size in $( ls -1 icons/winbox-*.png | cut -d\- -f2 | cut -d\. -f1 | paste -sd ' ') ; do
+	mkdir -p ~/.local/share/icons/hicolor/${size}/apps/
+	cp -f icons/winbox-${size}.png ~/.local/share/icons/hicolor/${size}/apps/winbox.png
+done
+
+echo "[Desktop Entry]" > ~/.local/share/applications/winbox.desktop
+echo "Name=Winbox" >> ~/.local/share/applications/winbox.desktop
+echo "GenericName=RouterOS Configuration Utility" >> ~/.local/share/applications/winbox.desktop
+echo "Comment=RouterOS Configuration Utility" >> ~/.local/share/applications/winbox.desktop
+echo "Exec=$HOME/.local/bin/winbox" >> ~/.local/share/applications/winbox.desktop
+echo "Icon=winbox" >> ~/.local/share/applications/winbox.desktop
+echo "Terminal=false" >> ~/.local/share/applications/winbox.desktop
+echo "Type=Application" >> ~/.local/share/applications/winbox.desktop
+echo "StartupNotify=true" >> ~/.local/share/applications/winbox.desktop
+echo "StartupWMClass=winbox64.exe" >> ~/.local/share/applications/winbox.desktop
+echo "Categories=Network;RemoteAccess;" >> ~/.local/share/applications/winbox.desktop
+echo "Keywords=routeros;winbox;mikrotik;" >> ~/.local/share/applications/winbox.desktop
+
+echo '#! /bin/bash' > ~/local/bin/winbox
+echo 'FREETYPE_PROPERTIES="truetype:interpreter-version=35" wine ~/.local/exe/winbox64.exe' >> ~/.local/bin/winbox
+
+#####################
+#
+#  To Uninstall
+#
+#####################
+
+# rm ~/.local/share/applications/winbox.desktop
+# rm ~/.local/bin/winbox
+# rm ~/.local/exe/winbox64.exe
+# find ~/.local/share/icons -name winbox.png -delete
