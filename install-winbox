@@ -27,7 +27,7 @@ echo "StartupWMClass=winbox64.exe" >> ~/.local/share/applications/winbox.desktop
 echo "Categories=Network;RemoteAccess;" >> ~/.local/share/applications/winbox.desktop
 echo "Keywords=routeros;winbox;mikrotik;" >> ~/.local/share/applications/winbox.desktop
 
-echo '#! /bin/bash' > ~/.local/bin/winbox
+echo '#!/bin/bash' > ~/.local/bin/winbox
 echo 'FREETYPE_PROPERTIES="truetype:interpreter-version=35" wine ~/.local/exe/winbox64.exe' >> ~/.local/bin/winbox
 
 chmod +x ~/.local/bin/winbox
